@@ -1,0 +1,34 @@
+name:           fast-math
+version:        0.1
+synopsis:       Non IEEE-754 compliant compile-time floating-point optimisations
+description:
+    The "Numeric.FastMath" module brings into scope RULES for 'Float's and
+    'Double's that rewrite @x-x@, @0*x@ and @x*0@ to @0@. This disagrees
+    with IEEE-754 when @x@ is @NaN@, but is acceptable for most
+    applications.
+    .
+    Importing "Numeric.FastMath.Infinitesimal" also rewrites @0/x@ to @0@.
+    .
+    Optimisation (at least @-O1@) must be enabled for any RULES to take effect.
+license:        BSD3
+license-file:   LICENSE
+author:         Liyang HU
+maintainer:     fast-math@liyang.hu
+copyright:      © 2011, Liyang HU
+category:       Math, Numeric
+build-type:     Simple
+cabal-version:  >= 1.2.3
+
+library
+    build-depends:
+        base >= 3 && < 5
+    exposed-modules:
+        Numeric.FastMath
+        Numeric.FastMath.Infinitesimal
+    extensions:
+        NoImplicitPrelude
+        MagicHash
+    ghc-options: -Wall -fno-warn-orphans
+
+-- vim: et ts=4 sw=4:
+
