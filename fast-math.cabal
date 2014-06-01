@@ -1,5 +1,5 @@
 name:           fast-math
-version:        0.1
+version:        1.0
 synopsis:       Non IEEE-754 compliant compile-time floating-point optimisations
 description:
     The "Numeric.FastMath" module brings into scope RULES for 'Float's and
@@ -10,9 +10,10 @@ description:
     Importing "Numeric.FastMath.Infinitesimal" also rewrites @0/x@ to @0@.
     .
     Optimisation (at least @-O1@) must be enabled for any RULES to take effect.
+
 license:        BSD3
 license-file:   LICENSE
-author:         Liyang HU
+author:         Liyang HU and Mike Izbicki
 maintainer:     fast-math@liyang.hu
 copyright:      © 2011, Liyang HU
 category:       Math, Numeric
@@ -29,11 +30,13 @@ library
         base >= 3 && < 5
     exposed-modules:
         Numeric.FastMath
+        Numeric.FastMath.Approximation
         Numeric.FastMath.Infinitesimal
+        Numeric.FastMath.NaN
     default-extensions:
         NoImplicitPrelude
         MagicHash
-    ghc-options: -Wall -fno-warn-orphans
-
--- vim: et ts=4 sw=4:
+    ghc-options: 
+        -Wall 
+        -fno-warn-orphans
 
