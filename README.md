@@ -6,7 +6,7 @@ This package enables a number of "unsafe" floating point optimizations for GHC. 
 x*y + x*z == z*(y+z)
 ```
 
-does not hold for `Float` or `Double` types.  The lowest order bits may be different due to rounding errors.Therefore, GHC (and most compilers for any language) will not perform this optimization by default.   Instead, most compilers support special flags that enable these unsafe optimizations.  See for example the [-ffast-math flag in the gcc documentation](https://gcc.gnu.org/onlinedocs/gcc/Optimize-Options.html).  GHC, however, has [no built in flags for these optimizations](http://www.haskell.org/ghc/docs/7.8.2/html/users_guide/flag-reference.html).  But that's okay.  GHC's `RULES` pragmas are sufficiently powerful to achieve most of the performance benefits of `-ffast-math`. This package provides those `RULES` pragmas.  
+can be used to reduce the number of multiplications in your code.  Unfortunately, this law does not hold for `Float` or `Double` types.  The lowest order bits may be different due to rounding errors.  Therefore, GHC (and most compilers for any language) will not perform this optimization by default.   Instead, most compilers support special flags that enable these unsafe optimizations.  See for example the [-ffast-math flag in the gcc documentation](https://gcc.gnu.org/onlinedocs/gcc/Optimize-Options.html).  GHC, however, has [no built in flags for these optimizations](http://www.haskell.org/ghc/docs/7.8.2/html/users_guide/flag-reference.html).  But that's okay.  GHC's `RULES` pragmas are sufficiently powerful to achieve most of the performance benefits of `-ffast-math`. This package provides those `RULES` pragmas.  
 
 ### Enabling the optimizations
 
