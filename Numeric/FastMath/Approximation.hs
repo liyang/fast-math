@@ -9,6 +9,9 @@
 --
 -- All of these RULES should be safe in the presence of `NaN` and `Infinity`
 --
+-- Importing this module is similar to compiling with gcc's
+-- @-funsafe-math-operations@.
+--
 module Numeric.FastMath.Approximation
     where
 

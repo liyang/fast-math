@@ -2,14 +2,14 @@ name:           fast-math
 version:        1.0
 synopsis:       Non IEEE-754 compliant compile-time floating-point optimisations
 description:
-    The "Numeric.FastMath" module brings into scope RULES for 'Float's and
-    'Double's that rewrite @x-x@, @0*x@ and @x*0@ to @0@. This disagrees
-    with IEEE-754 when @x@ is @NaN@, but is acceptable for most
-    applications.
+    The "Numeric.FastMath" module brings into scope many unsafe @RULES@ for 
+    'Float's and 'Double's that can greatly improve run time performance.
+    It is roughly equivalent to gcc\'s @-ffast-math@ compiler flag.
+    Optimisation (at least @-O1@) must be enabled for any @RULES@ to take effect.
     .
-    Importing "Numeric.FastMath.Infinitesimal" also rewrites @0/x@ to @0@.
-    .
-    Optimisation (at least @-O1@) must be enabled for any RULES to take effect.
+    These rules are unsafe because they don't strictly adhere to the
+    IEEE-754 regulations and may subtly change the results of your numeric computations.
+    See the <http://github.com/liyang/fast-math/ README> on github for more details.
 
 license:        BSD3
 license-file:   LICENSE
@@ -31,8 +31,8 @@ library
     exposed-modules:
         Numeric.FastMath
         Numeric.FastMath.Approximation
-        Numeric.FastMath.Infinitesimal
         Numeric.FastMath.NaN
+        Numeric.FastMath.SignedZeros
     default-extensions:
         NoImplicitPrelude
         MagicHash
