@@ -3,7 +3,7 @@
 This package enables a number of "unsafe" floating point optimizations for GHC.  For example, the distributive law:
 
 ```
-x*y + x*z == z*(y+z)
+x*y + x*z == x*(y+z)
 ```
 
 does not hold for `Float` or `Double` types.  The lowest order bits may be different due to rounding errors.Therefore, GHC (and most compilers for any language) will not perform this optimization by default.   Instead, most compilers support special flags that enable these unsafe optimizations.  See for example the [-ffast-math flag in the gcc documentation](https://gcc.gnu.org/onlinedocs/gcc/Optimize-Options.html) and the [gcc wiki page FloatingPointMath](https://gcc.gnu.org/wiki/FloatingPointMath).  GHC, however, has [no built in flags for these optimizations](http://www.haskell.org/ghc/docs/7.8.2/html/users_guide/flag-reference.html).  But that's okay.  GHC's `RULES` pragmas are sufficiently powerful to achieve most of the performance benefits of `-ffast-math`. This package provides those `RULES` pragmas.  
@@ -65,7 +65,17 @@ If we change the code so that the constants appear next to each other:
 test3 d1 d2 = d1*d2 + d1*10 + d1*20 
 ```
 
-then GHC successfully combines the constants.
+then GHC successfully combines the constants into the core:
+
+```
+test3 :: Double -> Double -> Double
+test3 = \ (d1 :: Double) (d2 :: Double) ->
+    case d1 of _ { D# x ->
+    case d2 of _ { D# y ->
+    D# (*## x (+## y 30.0))
+    }
+    }
+```
 
 We could fix this problem if the `RULES` pragmas could identify which terms are constants and which are variables.  This would let us commute/associate the constants to the left of all computations, then GHC's standard constant folding mechanism would work successfully.
 
