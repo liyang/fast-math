@@ -1,5 +1,5 @@
 name:           fast-math
-version:        1.0
+version:        1.0.1
 synopsis:       Non IEEE-754 compliant compile-time floating-point optimisations
 description:
     The "Numeric.FastMath" module brings into scope many unsafe @RULES@ for 
