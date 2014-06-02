@@ -113,7 +113,7 @@ import Prelude
 
 {-# RULES
 
-"double **,* distribute" forall x y1 y2. (y1 **## x) *## (y2 **## x) = (y1 *## y2) *## x
+"double **,* distribute" forall x y1 y2. (y1 **## x) *## (y2 **## x) = (y1 *## y2) **## x
 
 "double **,log distribute" forall x y. logDouble# (x **## y) = y *## (logDouble# x)
 
