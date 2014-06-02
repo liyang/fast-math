@@ -57,7 +57,7 @@ import Prelude
 
 
 
-"double /,+ distribute" forall x y1 y2. (y1 *## x) +## (y2 *## x) 
+"double /,+ distribute" forall x y1 y2. (y1 /## x) +## (y2 /## x) 
     = (y1 +## y2) /## x
 
 "double /,- distribute" forall x y1 y2. (y1 /## x) -## (y2 /## x) 
