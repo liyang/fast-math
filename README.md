@@ -65,7 +65,17 @@ If we change the code so that the constants appear next to each other:
 test3 d1 d2 = d1*d2 + d1*10 + d1*20 
 ```
 
-then GHC successfully combines the constants.
+then GHC successfully combines the constants into the core:
+
+```
+test3 :: Double -> Double -> Double
+test3 = \ (d1 :: Double) (d2 :: Double) ->
+    case d1 of _ { D# x ->
+    case d2 of _ { D# y ->
+    D# (*## x (+## y 30.0))
+    }
+    }
+```
 
 We could fix this problem if the `RULES` pragmas could identify which terms are constants and which are variables.  This would let us commute/associate the constants to the left of all computations, then GHC's standard constant folding mechanism would work successfully.
 
