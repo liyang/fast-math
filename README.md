@@ -33,7 +33,7 @@ test1 :: Double -> Double
 test1 d = d*10 + d*20
 ```
 
-GHC factors out `d`, then folds the constants, producing the core:
+With the `fast-math` library, GHC factors out `d`, then folds the constants, producing the core:
 
 ```
 test1 :: Double -> Double
@@ -44,7 +44,7 @@ test1 = \ (d :: Double) ->
 But if we make the code just a little more complicated:
 
 ```
-test2 = d1*d2 + (d3 + 5)*d1 + d1*32
+test2 d1 d2 = d1*10 + d1*d2 + d1*20 
 ```
 
 Then GHC distributes successfuly, but can't figure out how to fold the constants.  It produces the core:
@@ -59,7 +59,15 @@ test2 = \ (d1 :: Double) (d2 :: Double) ->
     }
 ```
 
-We could fix this problem if the `RULES` pragmas could identify constants instead of variables.  This would let us commute/associate the constants to the left of all computations, then GHC's standard constant folding mechanism would work successfully.
+If we change the code so that the constants appear next to each other:
+
+```
+test3 d1 d2 = d1*d2 + d1*10 + d1*20 
+```
+
+then GHC successfully combines the constants.
+
+We could fix this problem if the `RULES` pragmas could identify which terms are constants and which are variables.  This would let us commute/associate the constants to the left of all computations, then GHC's standard constant folding mechanism would work successfully.
 
 **The best way to check what optimizations are actually supported is to look at the source code.**  `RULES` pragmas are surprisingly readable.
 
