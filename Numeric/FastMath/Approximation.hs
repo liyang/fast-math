@@ -207,7 +207,7 @@ import Prelude
 
 {-# RULES
 
-"double repmul 4" forall x . timesFloat# x (timesFloat# x (timesFloat# x x))
+"double repmul 4" [1] forall x . timesFloat# x (timesFloat# x (timesFloat# x x))
     = let xx = timesFloat# x x in timesFloat# xx xx
 
   #-}
@@ -233,8 +233,8 @@ import Prelude
 "double **1" forall x . x **## 1.0## = x
 "double **2" forall x . x **## 2.0## = x *## x
 "double **3" forall x . x **## 3.0## = x *## x *## x
-"double **4" forall x . x **## 4.0## = let xx = x *## x in xx *## xx
-"double **8" forall x . x **## 8.0## = let xxx = (let xx = x *## x in xx *## xx) in xxx *## xxx
+"double **4" [1] forall x . x **## 4.0## = let xx = x *## x in xx *## xx
+"double **8" [1] forall x . x **## 8.0## = let xxx = (let xx = x *## x in xx *## xx) in xxx *## xxx
 
 "double **(1/2)" forall x## . x## **## 0.500## = sqrtDouble# x##
 "double **(1/4)" forall x## . x## **## 0.250## = sqrtDouble# (sqrtDouble# x##)
@@ -246,8 +246,8 @@ import Prelude
 "float **1" forall x# . powerFloat# x# 1.0# = x#
 "float **2" forall x# . powerFloat# x# 2.0# = timesFloat# x# x#
 "float **3" forall x# . powerFloat# x# 3.0# = timesFloat# (timesFloat# x# x#) x#
-"float **4" forall x# . powerFloat# x# 4.0# = let xx# = (timesFloat# x# x#) in timesFloat# xx# xx#
-"float **8" forall x# . powerFloat# x# 8.0# = let xxx# = (let xx# = (timesFloat# x# x#) in timesFloat# xx# xx#) in timesFloat# xxx# xxx#
+"float **4" [1] forall x# . powerFloat# x# 4.0# = let xx# = (timesFloat# x# x#) in timesFloat# xx# xx#
+"float **8" [1] forall x# . powerFloat# x# 8.0# = let xxx# = (let xx# = (timesFloat# x# x#) in timesFloat# xx# xx#) in timesFloat# xxx# xxx#
 
 "float **(1/2)" forall x# . powerFloat# x# 0.500# = sqrtFloat# x#
 "float **(1/4)" forall x# . powerFloat# x# 0.250# = sqrtFloat# (sqrtFloat# x#)
