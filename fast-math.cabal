@@ -1,8 +1,8 @@
 name:           fast-math
-version:        1.0.1
+version:        1.0.2
 synopsis:       Non IEEE-754 compliant compile-time floating-point optimisations
 description:
-    The "Numeric.FastMath" module brings into scope many unsafe @RULES@ for 
+    The "Numeric.FastMath" module brings into scope many unsafe @RULES@ for
     'Float's and 'Double's that can greatly improve run time performance.
     It is roughly equivalent to gcc\'s @-ffast-math@ compiler flag.
     Optimisation (at least @-O1@) must be enabled for any @RULES@ to take effect.
@@ -36,7 +36,7 @@ library
     default-extensions:
         NoImplicitPrelude
         MagicHash
-    ghc-options: 
-        -Wall 
+    ghc-options:
+        -Wall
         -fno-warn-orphans
 
